@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>时间选择器插件演示</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Helvetica Neue', Helvetica, Segoe UI, Arial, Roboto, 'PingFang SC', 'miui', 'Hiragino Sans GB', 'Microsoft Yahei', sans-serif;
+            background-color: #f7f8fa;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .header h1 {
+            font-size: 24px;
+            color: #323233;
+            margin-bottom: 10px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #969799;
+        }
+
+        .demo-item {
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
+        }
+
+        .demo-item h2 {
+            font-size: 16px;
+            color: #323233;
+            margin-bottom: 16px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .demo-item h2::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 16px;
+            background: #1989fa;
+            border-radius: 2px;
+        }
+
+        .field {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid #f2f3f5;
+        }
+
+        .field:last-child {
+            border-bottom: none;
+        }
+
+        .field-label {
+            font-size: 14px;
+            color: #323233;
+        }
+
+        .field-value {
+            font-size: 14px;
+            color: #1989fa;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+        }
+
+        .field-value span {
+            margin-right: 8px;
+        }
+
+        .preview {
+            background: #fff;
+            border-radius: 8px;
+            padding: 16px;
+            margin-top: 30px;
+        }
+
+        .preview h3 {
+            font-size: 16px;
+            color: #323233;
+            margin-bottom: 12px;
+        }
+
+        .preview-content {
+            font-size: 14px;
+            color: #646566;
+            line-height: 1.6;
+        }
+
+        .preview-value {
+            color: #1989fa;
+            font-weight: 500;
+        }
+
+        @media (max-width: 768px) {
+            body {
+                padding: 10px;
+            }
+        }
+    </style>
+
+    <!-- 引入时间选择器插件的CSS -->
+    <link rel="stylesheet" href="./css/time-picker.css">
+</head>
+
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>时间选择器插件演示</h1>
+            <p>封装后的插件，支持多种时间格式选择</p>
+        </div>
+
+        <div class="demo-item">
+            <h2>基本使用</h2>
+            <div class="field">
+                <div class="field-label">日期时间选择</div>
+                <div class="field-value" id="datetime-field">
+                    <span id="datetime-value">点击选择日期时间</span>
+                    <i>▶</i>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="field-label">日期选择</div>
+                <div class="field-value" id="date-field">
+                    <span id="date-value">点击选择日期</span>
+                    <i>▶</i>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="field-label">年月选择</div>
+                <div class="field-value" id="year-month-field">
+                    <span id="year-month-value">点击选择年月</span>
+                    <i>▶</i>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="field-label">年份选择</div>
+                <div class="field-value" id="year-field">
+                    <span id="year-value">点击选择年份</span>
+                    <i>▶</i>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="field-label">时间选择</div>
+                <div class="field-value" id="time-field">
+                    <span id="time-value">点击选择时间</span>
+                    <i>▶</i>
+                </div>
+            </div>
+        </div>
+
+        <div class="demo-item">
+            <h2>高级配置</h2>
+            <div class="field">
+                <div class="field-label">自定义范围</div>
+                <div class="field-value" id="custom-range-field">
+                    <span id="custom-range-value">点击选择(2020-2030)</span>
+                    <i>▶</i>
+                </div>
+            </div>
+
+            <div class="field">
+                <div class="field-label">默认值</div>
+                <div class="field-value" id="default-value-field">
+                    <span id="default-value">点击选择(默认2025-06-15)</span>
+                    <i>▶</i>
+                </div>
+            </div>
+        </div>
+
+        <div class="preview">
+            <h3>插件说明</h3>
+            <div class="preview-content">
+                <p>这是一个封装好的时间选择器插件，具有以下特性：</p>
+                <p>• <span class="preview-value">模块化设计</span>：独立的JS和CSS文件，易于集成</p>
+                <p>• <span class="preview-value">多种格式</span>：支持日期时间、日期、年月、年份、时间五种格式</p>
+                <p>• <span class="preview-value">响应式设计</span>：适配移动端和PC端</p>
+                <p>• <span class="preview-value">自定义配置</span>：支持自定义时间范围、默认值等</p>
+                <p>• <span class="preview-value">事件回调</span>：提供确认和取消事件回调</p>
+                <p>• <span class="preview-value">修复2月天数</span>：正确识别闰年，2月有28或29天</p>
+                <p>查看浏览器控制台可以查看选择器的事件输出。</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- 引入时间选择器插件的JS -->
+    <script src="./js/time-picker.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // 基本使用示例
+            const datetimePicker = new TimePicker({
+                trigger: '#datetime-field',
+                type: 'datetime',
+                onConfirm: function (value) {
+                    document.getElementById('datetime-value').textContent = value;
+                    console.log('日期时间选择:', value);
+                }
+            });
+
+            const datePicker = new TimePicker({
+                trigger: '#date-field',
+                type: 'date',
+                onConfirm: function (value) {
+                    document.getElementById('date-value').textContent = value;
+                    console.log('日期选择:', value);
+                }
+            });
+
+            const yearMonthPicker = new TimePicker({
+                trigger: '#year-month-field',
+                type: 'year-month',
+                onConfirm: function (value) {
+                    document.getElementById('year-month-value').textContent = value;
+                    console.log('年月选择:', value);
+                }
+            });
+
+            const yearPicker = new TimePicker({
+                trigger: '#year-field',
+                type: 'year',
+                onConfirm: function (value) {
+                    document.getElementById('year-value').textContent = value + '年';
+                    console.log('年份选择:', value);
+                }
+            });
+
+            const timePicker = new TimePicker({
+                trigger: '#time-field',
+                type: 'time',
+                onConfirm: function (value) {
+                    document.getElementById('time-value').textContent = value;
+                    console.log('时间选择:', value);
+                }
+            });
+
+            // 高级配置示例
+            const customRangePicker = new TimePicker({
+                trigger: '#custom-range-field',
+                type: 'date',
+                minDate: '2020-01-01',
+                maxDate: '2030-12-31',
+                onConfirm: function (value) {
+                    document.getElementById('custom-range-value').textContent = value;
+                    console.log('自定义范围选择:', value);
+                }
+            });
+            const defaultValuePicker = new TimePicker({
+                trigger: '#default-value-field',
+                type: 'date',
+                defaultValue: '2025-06-15',
+                onConfirm: function (value) {
+                    document.getElementById('default-value').textContent = value;
+                    console.log('默认值选择:', value);
+                }
+            });
+        });
+    </script>
+<script>document.addEventListener('DOMContentLoaded', function() { const timepicker_1760083097000_54305 = new TimePicker({ trigger: '#surveyAnsw_1760083097000_54305_0', type: 'datetime', onConfirm: function(value) {document.getElementById('#surveyAnsw_1760083097000_54305_0').value = value;}});</script>
+</body>
+</html>
