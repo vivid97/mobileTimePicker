@@ -1,2 +1,2 @@
 # mobileTimePicker
-a time select js plugins by deepseek
+a time select js plugin by deepseek
